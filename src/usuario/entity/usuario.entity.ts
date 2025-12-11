@@ -39,3 +39,4 @@ export class Usuario {
   foto?: string // URL da foto  
   
 }
+
