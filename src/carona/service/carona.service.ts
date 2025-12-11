@@ -44,7 +44,11 @@ export class CaronaService {
   }
 
   async create(carona: Carona): Promise<Carona> {
+
+    carona.tempo = carona.distancia / carona.velocidade;
+
     return await this.caronaRepository.save(carona);
+
   }
 
   async update(carona: Carona): Promise<Carona> {
