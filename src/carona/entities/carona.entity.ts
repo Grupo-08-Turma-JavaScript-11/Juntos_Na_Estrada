@@ -18,11 +18,11 @@ export class Carona{
 
     @IsNotEmpty()
     @Column({length: 50, nullable: false})
-    cidadeOrigem: string;
+    enderecoOrigem: string;
 
     @IsNotEmpty()
     @Column({length: 50, nullable: false})
-    cidadeDestino: string;
+    enderecoDestino: string;
 
     @IsNotEmpty()
     @Column()

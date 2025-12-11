@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Carona } from "../entities/carona.entity";
-import { ILike, Repository } from "typeorm";
+import { DeleteResult, ILike, Repository } from "typeorm";
 
 
 @Injectable()
@@ -32,22 +32,45 @@ export class CaronaService{
         return carona;
     }
 
-    async findByCidadeOrigem(cidadeOrigem: string): Promise<Carona[]>{
+    async findByEnderecoOrigem(enderecoOrigem: string): Promise<Carona[]>{
         return await this.caronaRepository.find({
-            where: {cidadeOrigem: ILike(`%${cidadeOrigem}%`)},
+            where: {enderecoOrigem: ILike(`%${enderecoOrigem}%`)},
             relations: {}
         })
     }
 
-    async findByCidadeDestino(cidadeDestino: string): Promise<Carona[]>{
+    async findByEnderecoDestino(enderecoDestino: string): Promise<Carona[]>{
         return await this.caronaRepository.find({
-            where: {cidadeDestino: ILike(`%${cidadeDestino}%`)},
+            where: {enderecoDestino: ILike(`%${enderecoDestino}%`)},
             relations: {}
         })
     }
 
     async create(carona: Carona): Promise<Carona>{
         return await this.caronaRepository.save(carona);
+    }
+
+    async update(carona: Carona): Promise<Carona>{
+        
+        let buscaCarona: Carona = await this.findById(carona.id); 
+
+        if(!buscaCarona){
+            throw new HttpException('Carona nao localizada', HttpStatus.NOT_FOUND)
+        }
+
+        return this.caronaRepository.save(carona)
+
+    }
+
+    async delete(id: number): Promise<DeleteResult>{
+
+        let buscaCarona = await this.findById(id)
+
+        if(!buscaCarona){
+            throw new HttpException('Carona nao encontrada', HttpStatus.NOT_FOUND)
+        }
+
+        return await this.caronaRepository.delete(id);
     }
 
 }
