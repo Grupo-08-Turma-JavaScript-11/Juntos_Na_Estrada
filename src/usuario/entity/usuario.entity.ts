@@ -12,9 +12,7 @@ import {
 
 @Entity('tb_usuarios')
 export class Usuario {
-  static id(id: any): Usuario | PromiseLike<Usuario> {
-    throw new Error('Method not implemented.');
-  }
+  
   @PrimaryGeneratedColumn()
   id: number
   
@@ -36,7 +34,7 @@ export class Usuario {
   tipo: string
 
   @Column({ nullable: true, length: 500 })
-  foto?: string // URL da foto  
+  foto: string // URL da foto  
   
 }
 
