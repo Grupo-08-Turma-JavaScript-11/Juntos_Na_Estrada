@@ -21,8 +21,8 @@ export class CategoriaController {
     return this.categoriaService.findById(id)
   }
 
-  @Get(':descricao')
-  findByDescricao(@Param('descricao') descricao: string) {
+  @Get('/descricao/:descricao')
+  findByDescricao(@Param(':descricao') descricao: string) {
   return this.categoriaService.findByDescricao(descricao);
   }
 
