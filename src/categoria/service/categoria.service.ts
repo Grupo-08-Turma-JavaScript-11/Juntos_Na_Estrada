@@ -36,13 +36,13 @@ export class CategoriaService {
   }
 
   
-  // Atualizar categoria
+ 
 async update(categoria: Categoria): Promise<Categoria> {
 
-  // Verifica se a categoria existe procurando pelo ID enviado no corpo
+  
   await this.findById(categoria.id);
 
-  // Atualiza a categoria inteira
+
   return await this.categoriaRepository.save(categoria);
 }
 
