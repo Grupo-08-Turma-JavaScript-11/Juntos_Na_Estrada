@@ -1,7 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository, DeleteResult } from 'typeorm';
-import { Usuario } from '../entity/usuario.entity'; // ajuste o caminho conforme seu projeto
+import { Usuario } from '../entities/usuario.entity'; // ajuste o caminho conforme seu projeto
 
 @Injectable()
 export class UsuarioService {
@@ -49,17 +49,20 @@ export class UsuarioService {
   }
 
   async update(usuario: Usuario): Promise<Usuario> {
-
     let buscaUsuario = await this.findByUsuario(usuario.usuario);
+    let buscaUsuarioId = await this.findById(usuario.id);
 
-    if (buscaUsuario ) {
+    if (!buscaUsuarioId) {
+      throw new HttpException('Usuario nao cadastrado', HttpStatus.NOT_FOUND);
+    }
+
+    if (buscaUsuario && buscaUsuario.id !== usuario.id) {
       throw new HttpException(
-        'Nenhum usuário informado para atualizar',
-        HttpStatus.BAD_GATEWAY,
+        'Email cadastrado com outro usuario',
+        HttpStatus.BAD_REQUEST,
       );
     }
 
-    await this.findById(usuario.id);
     return this.usuarioRepository.save(usuario);
   }
 
