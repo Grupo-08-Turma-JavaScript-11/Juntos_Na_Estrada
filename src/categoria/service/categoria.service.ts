@@ -36,17 +36,20 @@ export class CategoriaService {
   }
 
   
-  async update(id: number, categoria: Categoria): Promise<Categoria> {
+  // Atualizar categoria
+async update(categoria: Categoria): Promise<Categoria> {
 
-    await this.findById(id); 
+  // Verifica se a categoria existe procurando pelo ID enviado no corpo
+  await this.findById(categoria.id);
 
-    categoria.id = id; 
+  // Atualiza a categoria inteira
+  return await this.categoriaRepository.save(categoria);
+}
 
-    return await this.categoriaRepository.save(categoria);
-  }
 
   async delete(id: number): Promise<void> {
-    await this.findById(id);
-    await this.categoriaRepository.delete(id);
-  }
+  await this.findById(id); // garante que existe
+  await this.categoriaRepository.delete(id);  
+}
+
 }

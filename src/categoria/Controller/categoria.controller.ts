@@ -22,13 +22,11 @@ export class CategoriaController {
     return this.categoriaService.create(categoria);
   }
 
-  @Put(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() categoria: Categoria
-  ) {
-    return this.categoriaService.update(id, categoria);
-  }
+ @Put()
+update(@Body() categoria: Categoria) {
+  return this.categoriaService.update(categoria);
+}
+
 
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
