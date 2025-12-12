@@ -1,7 +1,9 @@
 import { IsNotEmpty } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Categoria } from '../../categoria/entities/categoria.entity';
+import { Usuario } from '../../usuario/entities/usuario.entity';
 
-@Entity({ name: 'tb_caronas' })
+@Entity({ name: 'tb_carona' })
 export class Carona {
   @PrimaryGeneratedColumn()
   id: number;
@@ -15,11 +17,11 @@ export class Carona {
   velocidade: number;
 
   @IsNotEmpty()
-  @Column({ length: 50, nullable: false })
+  @Column({ length: 255, nullable: false })
   enderecoOrigem: string;
 
   @IsNotEmpty()
-  @Column({ length: 50, nullable: false })
+  @Column({ length: 255, nullable: false })
   enderecoDestino: string;
 
   @IsNotEmpty()
@@ -29,4 +31,14 @@ export class Carona {
   @IsNotEmpty()
   @Column()
   vagas: number;
+
+  @ManyToOne(() => Categoria, (categoria) => categoria.caronas,{
+    onDelete: "CASCADE"
+  })
+  categoria: Carona[];
+
+  @ManyToOne(() => Usuario, (usuario) => usuario.carona,{
+    onDelete: "CASCADE"
+  })
+  usuario: Carona[];
 }

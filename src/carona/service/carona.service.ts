@@ -12,14 +12,20 @@ export class CaronaService {
 
   async findAll(): Promise<Carona[]> {
     return await this.caronaRepository.find({
-      relations: {},
+      relations: {
+        categoria: true,
+        usuario: true,
+      },
     });
   }
 
   async findById(id: number): Promise<Carona> {
     let carona = await this.caronaRepository.findOne({
       where: { id },
-      relations: {},
+      relations: {
+        categoria: true,
+        usuario: true,
+      },
     });
 
     if (!carona) {
@@ -32,14 +38,20 @@ export class CaronaService {
   async findByEnderecoOrigem(enderecoOrigem: string): Promise<Carona[]> {
     return await this.caronaRepository.find({
       where: { enderecoOrigem: ILike(`%${enderecoOrigem}%`) },
-      relations: {},
+      relations: {
+        categoria: true,
+        usuario: true,
+      },
     });
   }
 
   async findByEnderecoDestino(enderecoDestino: string): Promise<Carona[]> {
     return await this.caronaRepository.find({
       where: { enderecoDestino: ILike(`%${enderecoDestino}%`) },
-      relations: {},
+      relations: {
+        categoria: true,
+        usuario: true,
+      },
     });
   }
 

@@ -1,18 +1,18 @@
 import{ Entity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm'
-import {Carona} from '../carona/entities/carona.entity'
+import { Carona } from '../../carona/entities/carona.entity';
+
 
 @Entity ({ name: 'tb_categoria'})
 export class Categoria{
 
 @PrimaryGeneratedColumn()
 id: number;
-@Column({ length: 255, nullable: false })
 
-@Column()
+@Column({ length: 255, nullable: false })
 descricao: string;
-@Column({ length: 255, nullable: false })
 
-@OneToMany(() => Carona, (categoria) => Carona.categoria)
+
+@OneToMany(() => Carona, (caronas) => caronas.categoria)
 caronas: Carona[];
 
 

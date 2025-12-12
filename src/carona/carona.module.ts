@@ -9,7 +9,7 @@ import { CaronaController } from "./controller/carona.controller";
     imports:[TypeOrmModule.forFeature([Carona])],
     providers: [CaronaService],
     controllers:[CaronaController],
-    exports: [],
+    exports: [TypeOrmModule],
 
 })
 export class CaronaModule {}

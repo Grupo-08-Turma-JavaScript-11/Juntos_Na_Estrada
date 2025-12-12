@@ -28,13 +28,21 @@ export class UsuarioService {
 
   async findByUsuario(usuario: string): Promise<Usuario | null> {
     return this.usuarioRepository.findOne({
-      where: { usuario: usuario },
+      where: { 
+        usuario: usuario },
+      relations: {
+        carona: true
+      }
     });
   }
 
   async findByTipo(tipo: string): Promise<Usuario[]> {
     return this.usuarioRepository.find({
-      where: { tipo: ILike(`%${tipo}%`) },
+      where: { 
+        tipo: ILike(`%${tipo}%`) },
+      relations: {
+        carona: true
+      }
     });
   }
 

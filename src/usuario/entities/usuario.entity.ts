@@ -1,7 +1,8 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Carona } from '../../carona/entities/carona.entity';
 
-@Entity('tb_usuarios')
+@Entity({ name: 'tb_usuarios' })
 export class Usuario {
   @PrimaryGeneratedColumn()
   id: number;
@@ -16,6 +17,8 @@ export class Usuario {
   usuario: string; // 'usuario' = email
 
   @IsNotEmpty()
+  @MinLength(8) // Determina que o minimo da senha são 8 cacteres
+  @IsNotEmpty()
   @Column({ length: 20, nullable: false })
   senha: string;
 
@@ -25,4 +28,8 @@ export class Usuario {
 
   @Column({ nullable: true, length: 500 })
   foto: string; // URL da foto
+
+  @OneToMany(() => Carona, (carona) => carona.usuario)
+  carona: Carona[];
+  
 }
