@@ -65,6 +65,9 @@ async update(categoria: Categoria): Promise<Categoria> {
   async delete(id: number): Promise<void> {
   await this.findById(id)
   await this.categoriaRepository.delete(id)  
+
+
+  
 }
 
 
