@@ -63,22 +63,20 @@ export class CaronaService {
 
   }
 
-  async tempoviagem(carona: Carona): Promise<string>{
+  async tempoviagem(carona: Carona): Promise<string> {
 
-    const tempo = carona.distancia / carona.velocidade
-    
-    const hora = Math.floor(tempo / 60)
+  const tempoHoras = carona.distancia / carona.velocidade
 
-    const minuto = tempo % 60
+  const horas = Math.floor(tempoHoras)
 
-    const minutosFormatados = minuto < 10 ? '0' + minuto : minuto;
-    
-     const horaMinuto: string = `${hora}h ${minutosFormatados}m`
+  // parte decimal convertida em minutos
+  const minutos = Math.round((tempoHoras - horas) * 60)
 
-    return await horaMinuto
-  }
+  return `${horas}h ${minutos}min`
+}
 
 
+  
   async update(carona: Carona): Promise<Carona> {
     let buscaCarona: Carona = await this.findById(carona.id);
 
