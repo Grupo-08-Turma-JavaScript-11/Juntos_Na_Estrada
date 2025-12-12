@@ -25,8 +25,8 @@ export class Carona {
   enderecoDestino: string;
 
   @IsNotEmpty()
-  @Column()
-  tempo: number;
+  @Column({ length: 255, nullable: false })
+  tempo: string;
 
   @IsNotEmpty()
   @Column()

@@ -57,11 +57,27 @@ export class CaronaService {
 
   async create(carona: Carona): Promise<Carona> {
 
-    carona.tempo = carona.distancia / carona.velocidade;
+    carona.tempo = await this.tempoviagem(carona)
 
-    return await this.caronaRepository.save(carona);
+    return this.caronaRepository.save(carona);
 
   }
+
+  async tempoviagem(carona: Carona): Promise<string>{
+
+    const tempo = carona.distancia / carona.velocidade
+    
+    const hora = Math.floor(tempo / 60)
+
+    const minuto = tempo % 60
+
+    const minutosFormatados = minuto < 10 ? '0' + minuto : minuto;
+    
+     const horaMinuto: string = `${hora}h ${minutosFormatados}m`
+
+    return await horaMinuto
+  }
+
 
   async update(carona: Carona): Promise<Carona> {
     let buscaCarona: Carona = await this.findById(carona.id);

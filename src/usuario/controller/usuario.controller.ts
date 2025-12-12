@@ -14,7 +14,7 @@ import { UsuarioService } from '../service/usuario.service';
 import { Usuario } from '../entities/usuario.entity';
 import { DeleteResult } from 'typeorm';
 
-@Controller('/usuario')
+@Controller('/usuarios')
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
