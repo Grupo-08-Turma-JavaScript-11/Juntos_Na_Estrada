@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Categoria } from '../entities/categoria.entity'
-import { Repository, Like } from 'typeorm'
+import { Repository, Like, DeleteResult } from 'typeorm'
 @Injectable()
 export class CategoriaService {
 
@@ -62,9 +62,14 @@ async update(categoria: Categoria): Promise<Categoria> {
 }
 
 
-  async delete(id: number): Promise<void> {
-  await this.findById(id)
-  await this.categoriaRepository.delete(id)  
+  async delete(id: number): Promise<DeleteResult> {
+    const buscaCategoria = await this.findById(id)
+
+    if (!buscaCategoria) {
+      throw new NotFoundException('Categoria nao encontrada')
+    }
+
+  return this.categoriaRepository.delete(id)  
 }
 
 
