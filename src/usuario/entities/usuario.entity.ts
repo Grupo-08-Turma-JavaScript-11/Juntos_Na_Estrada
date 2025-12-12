@@ -23,7 +23,7 @@ export class Usuario {
   senha: string;
 
   @IsNotEmpty()
-  @Column({ length: 45, nullable: false })
+  @Column({ length: 255, nullable: false })
   tipo: string;
 
   @Column({ nullable: true, length: 500 })

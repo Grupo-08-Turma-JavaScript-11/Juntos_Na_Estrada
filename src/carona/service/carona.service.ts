@@ -86,6 +86,8 @@ export class CaronaService {
       throw new HttpException('Carona nao localizada', HttpStatus.NOT_FOUND);
     }
 
+    carona.tempo = await this.tempoviagem(carona)
+
     return this.caronaRepository.save(carona);
   }
 

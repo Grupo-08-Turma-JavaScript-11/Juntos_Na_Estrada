@@ -17,7 +17,7 @@ export class UsuarioService {
   async findById(id: number): Promise<Usuario> {
     const usuario = await this.usuarioRepository.findOne({
       where: { id },
-      relations: {},
+      relations: { carona: true},
     });
 
     if (!usuario) {
@@ -26,13 +26,10 @@ export class UsuarioService {
     return usuario;
   }
 
-  async findByUsuario(usuario: string): Promise<Usuario | null> {
+  async findByUsuario(usuario: Usuario ): Promise<Usuario | null> {
     return this.usuarioRepository.findOne({
       where: { 
-        usuario: usuario },
-      relations: {
-        carona: true
-      }
+        usuario: usuario.usuario },
     });
   }
 
@@ -47,7 +44,7 @@ export class UsuarioService {
   }
 
   async create(usuario: Usuario): Promise<Usuario> {
-    const buscaUsuario = await this.findByUsuario(usuario.usuario);
+    const buscaUsuario = await this.findByUsuario(usuario);
 
     if (!buscaUsuario) {
       return this.usuarioRepository.save(usuario);
@@ -57,7 +54,7 @@ export class UsuarioService {
   }
 
   async update(usuario: Usuario): Promise<Usuario> {
-    let buscaUsuario = await this.findByUsuario(usuario.usuario);
+    let buscaUsuario = await this.findByUsuario(usuario);
     let buscaUsuarioId = await this.findById(usuario.id);
 
     if (!buscaUsuarioId) {
