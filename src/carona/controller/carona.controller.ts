@@ -2,7 +2,9 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPip
 import { CaronaService } from '../service/carona.service';
 import { Carona } from '../entities/carona.entity';
 import { DeleteResult } from 'typeorm';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Caronas')
 @Controller('/caronas')
 export class CaronaController {
   constructor(private readonly caronaService: CaronaService) {}

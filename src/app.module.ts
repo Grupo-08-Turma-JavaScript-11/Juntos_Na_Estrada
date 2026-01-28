@@ -6,6 +6,7 @@ import { Usuario } from './usuario/entities/usuario.entity';
 import { Categoria } from './categoria/entities/categoria.entity';
 import { UsuarioModule } from './usuario/usuario.module';
 import { CategoriaModule } from './categoria/categoria.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { CategoriaModule } from './categoria/categoria.module';
       host: "localhost",
       port: 3306,
       username: "root",
-      password: "root",
+      password: "12345678",
       database: "db_juntos_na_estrada",
       entities: [Usuario, Carona, Categoria],
       synchronize: true,
@@ -23,7 +24,7 @@ import { CategoriaModule } from './categoria/categoria.module';
     CaronaModule,
     CategoriaModule 
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}

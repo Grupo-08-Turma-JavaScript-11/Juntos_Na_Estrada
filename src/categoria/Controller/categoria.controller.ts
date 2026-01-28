@@ -3,7 +3,9 @@ import {
 
 import { CategoriaService } from '../service/categoria.service'
 import { Categoria } from '../entities/categoria.entity'
+import { ApiTags } from '@nestjs/swagger'
 
+@ApiTags('Categorias')
 @Controller('categorias')
 export class CategoriaController {
 
