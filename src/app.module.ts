@@ -7,18 +7,16 @@ import { Categoria } from './categoria/entities/categoria.entity';
 import { UsuarioModule } from './usuario/usuario.module';
 import { CategoriaModule } from './categoria/categoria.module';
 import { AppController } from './app.controller';
+import { ProdService } from './data/services/prod.service';
+import { ConfigModule } from '@nestjs/config';
+import { DevService } from './data/services/dev.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: "mysql",
-      host: "localhost",
-      port: 3306,
-      username: "root",
-      password: "12345678",
-      database: "db_juntos_na_estrada",
-      entities: [Usuario, Carona, Categoria],
-      synchronize: true,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      useClass: ProdService,
+      imports: [ConfigModule],
     }),
     UsuarioModule,
     CaronaModule,
